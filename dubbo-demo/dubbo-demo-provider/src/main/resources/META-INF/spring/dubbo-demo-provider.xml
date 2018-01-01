@@ -25,15 +25,17 @@ limitations under the License.
     <dubbo:application name="demo-provider"/>
 
     <!-- use multicast registry center to export service -->
-    <dubbo:registry address="multicast://224.5.6.7:1234"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
     <!-- use dubbo protocol to export service on port 20880 -->
-    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:protocol name="thrift" port="20880"/>
 
     <!-- service implementation, as same as regular local bean -->
-    <bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl"/>
+    <!--<bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl"/>-->
+    <bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoImpl"/>
 
     <!-- declare the service interface to be exported -->
-    <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService"/>
+    <!--<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService"/>-->
+    <dubbo:service  protocol="thrift" interface="com.alibaba.dubbo.demo.Demo$Iface" ref="demoService" timeout="1000000"/>
 
 </beans>
