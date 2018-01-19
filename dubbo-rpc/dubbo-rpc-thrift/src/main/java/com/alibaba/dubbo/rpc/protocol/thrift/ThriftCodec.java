@@ -31,7 +31,7 @@ import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.alibaba.dubbo.rpc.RpcResult;
 import com.alibaba.dubbo.rpc.protocol.thrift.io.RandomAccessByteArrayOutputStream;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.thrift.TApplicationException;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
@@ -279,7 +279,7 @@ public class ThriftCodec implements Codec2 {
             TApplicationException exception;
 
             try {
-                exception = TApplicationException.read(protocol);
+                exception = TApplicationException.readFrom(protocol);
                 protocol.readMessageEnd();
             } catch (TException e) {
                 throw new IOException(e.getMessage(), e);
