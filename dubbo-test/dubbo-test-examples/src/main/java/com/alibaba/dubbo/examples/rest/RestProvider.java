@@ -31,7 +31,7 @@ public class RestProvider {
     }
 
     @Configuration
-    @EnableDubbo(scanBasePackages = "com.alibaba.dubbo.examples.rest.impl.facade")
+    @EnableDubbo(scanBasePackages = "com.alibaba.dubbo.demoservice.rest.impl.facade")
     static public class ProviderConfiguration {
 
     }

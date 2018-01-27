@@ -36,9 +36,9 @@ public class AnnotationProvider {
     }
 
     @Configuration
-    @EnableDubbo(scanBasePackages = "com.alibaba.dubbo.examples.annotation.impl", multipleConfig = true)
+    @EnableDubbo(scanBasePackages = "com.alibaba.dubbo.demoservice.annotation.impl", multipleConfig = true)
     @PropertySource("classpath:/com/alibaba/dubbo/examples/annotation/dubbo-provider.properties")
-//    @ComponentScan(value = {"com.alibaba.dubbo.examples.annotation.impl"})
+//    @ComponentScan(value = {"com.alibaba.dubbo.demoservice.annotation.impl"})
     static public class ProviderConfiguration {
         @Bean
         public ProviderConfig providerConfig() {

@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 
 /**
  * Activate. This annotation is useful for automatically activate certain extensions with the given criteria,
- * for examples: <code>@Activate</code> can be used to load certain <code>Filter</code> extension when there are
+ * for demoservice: <code>@Activate</code> can be used to load certain <code>Filter</code> extension when there are
  * multiple implementations.
  * <ol>
  * <li>{@link Activate#group()} specifies group criteria. Framework SPI defines the valid group values.

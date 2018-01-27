@@ -48,9 +48,7 @@ public class ThriftInvoker<T> extends AbstractInvoker<T> {
     }
 
     public ThriftInvoker(Class<T> type, URL url, ExchangeClient[] clients, Set<Invoker<?>> invokers) {
-        super(type, url,
-                new String[]{Constants.INTERFACE_KEY, Constants.GROUP_KEY,
-                        Constants.TOKEN_KEY, Constants.TIMEOUT_KEY});
+        super(type, url, new String[] {Constants.INTERFACE_KEY, Constants.GROUP_KEY, Constants.TOKEN_KEY, Constants.TIMEOUT_KEY});
         this.clients = clients;
         this.invokers = invokers;
     }
@@ -67,8 +65,8 @@ public class ThriftInvoker<T> extends AbstractInvoker<T> {
         inv.setAttachment(Constants.PATH_KEY, getUrl().getPath());
 
         // for thrift codec
-        inv.setAttachment(ThriftCodec.PARAMETER_CLASS_NAME_GENERATOR, getUrl().getParameter(
-                ThriftCodec.PARAMETER_CLASS_NAME_GENERATOR, DubboClassNameGenerator.NAME));
+        //TODO
+        //inv.setAttachment(ThriftCodec.PARAMETER_CLASS_NAME_GENERATOR, getUrl().getParameter(ThriftCodec.PARAMETER_CLASS_NAME_GENERATOR, DubboClassNameGenerator.NAME));
 
         ExchangeClient currentClient;
 
@@ -79,12 +77,13 @@ public class ThriftInvoker<T> extends AbstractInvoker<T> {
         }
 
         try {
-            int timeout = getUrl().getMethodParameter(
-                    methodName, Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
+            int timeout = getUrl().getMethodParameter(methodName, Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
 
-            RpcContext.getContext().setFuture(null);
+            RpcContext.getContext()
+                      .setFuture(null);
 
-            return (Result) currentClient.request(inv, timeout).get();
+            return (Result) currentClient.request(inv, timeout)
+                                         .get();
 
         } catch (TimeoutException e) {
             throw new RpcException(RpcException.TIMEOUT_EXCEPTION, e.getMessage(), e);
@@ -102,8 +101,7 @@ public class ThriftInvoker<T> extends AbstractInvoker<T> {
         }
 
         for (ExchangeClient client : clients) {
-            if (client.isConnected()
-                    && !client.hasAttribute(Constants.CHANNEL_ATTRIBUTE_READONLY_KEY)) {
+            if (client.isConnected() && !client.hasAttribute(Constants.CHANNEL_ATTRIBUTE_READONLY_KEY)) {
                 //cannot write == not Available ?
                 return true;
             }
