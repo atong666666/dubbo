@@ -18,6 +18,9 @@ package com.alibaba.dubbo.rpc.demoservice;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * thrift provider
+ */
 public class DubboDemoProvider {
 
     public static void main(String[] args) throws Exception {

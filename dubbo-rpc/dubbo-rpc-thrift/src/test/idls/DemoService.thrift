@@ -1,8 +1,8 @@
 namespace java com.alibaba.dubbo.rpc.gen.thrift
-namespace go demo
+namespace go genthrift
 /*Demo service define file,can be generated to inteface files*/
 /*Here test the 7 kind of data type*/
-service Demo {
+service DemoService {
     bool echoBool( 1:required bool arg );
     byte echoByte( 1:required byte arg );
     i16  echoI16 ( 1:required i16  arg );

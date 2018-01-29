@@ -19,6 +19,7 @@ package com.alibaba.dubbo.rpc.protocol.thrift;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.protocol.AbstractProxyProtocol;
+
 import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TCompactProtocol;
@@ -32,12 +33,16 @@ import org.apache.thrift.transport.TTransport;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * ThriftProtocol
+ */
 public class ThriftProtocol extends AbstractProxyProtocol {
 
     public static final int DEFAULT_PORT = 40880;
 
     public static final String NAME = "thrift";
 
+    @Override
     public int getDefaultPort() {
         return DEFAULT_PORT;
     }
@@ -46,26 +51,17 @@ public class ThriftProtocol extends AbstractProxyProtocol {
         super(TException.class, RpcException.class);
     }
 
-
     @Override
-    protected <T> Runnable doExport(T impl, Class<T> type, URL url)
-            throws RpcException {
-        logger.info("impl => " + impl.getClass());
-        logger.info("type => " + type.getName());
-        logger.info("url => " + url);
+    protected <T> Runnable doExport(T impl, Class<T> type, URL url) throws RpcException {
         return exportThreadedSelectorServer(impl, type, url);
     }
 
     @Override
     protected <T> T doRefer(Class<T> type, URL url) throws RpcException {
-        logger.info("type => " + type.getName());
-        logger.info("url => " + url);
         return doReferFrameAndCompact(type, url);
     }
 
-
-    private <T> Runnable exportThreadedSelectorServer(T impl, Class<T> type, URL url)
-            throws RpcException {
+    private <T> Runnable exportThreadedSelectorServer(T impl, Class<T> type, URL url) throws RpcException {
         TProcessor tprocessor;
         TThreadedSelectorServer.Args tArgs = null;
         String iFace = "$Iface";
@@ -112,6 +108,8 @@ public class ThriftProtocol extends AbstractProxyProtocol {
         final TServer thriftServer = new TThreadedSelectorServer(tArgs);
 
         new Thread(new Runnable() {
+
+            @Override
             public void run() {
                 logger.info("Start Thrift ThreadedSelectorServer");
                 thriftServer.serve();

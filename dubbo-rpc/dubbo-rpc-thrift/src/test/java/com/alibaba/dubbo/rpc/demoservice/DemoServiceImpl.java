@@ -14,17 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.dubbo.rpc.protocol.thrift;
+package com.alibaba.dubbo.rpc.demoservice;
 
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportFactory;
+import com.alibaba.dubbo.rpc.gen.thrift.DemoService;
 
-public class FramedTransportFactory extends TTransportFactory {
+/**
+ * impl class
+ */
+public class DemoServiceImpl implements DemoService.Iface {
 
-    @Override
-    public TTransport getTransport(TTransport trans) {
-
-        return new TFramedTransport(trans);
+    public boolean echoBool(boolean arg) {
+        return arg;
     }
+
+    public byte echoByte(byte arg) {
+        return arg;
+    }
+
+    public short echoI16(short arg) {
+        return arg;
+    }
+
+    public int echoI32(int arg) {
+        return arg;
+    }
+
+    public long echoI64(long arg) {
+        return arg;
+    }
+
+    public double echoDouble(double arg) {
+        return arg;
+    }
+
+    public String echoString(String arg) {
+        return arg;
+    }
+
 }
